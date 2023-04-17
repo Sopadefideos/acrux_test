@@ -13,6 +13,9 @@ const eventApi = () => {
         if (!name || !date || !place) {
             return res.status(400).send('Missing required parameters');
         }else{
+            if(!isValidDate(date)){
+                return res.status(400).send('Format date not valid: yyyy-mm-dd');
+            }
             eventSchema.findOne({ name: name, date: date, place: place })
             .then(doc => {
                 if (!doc) {
@@ -44,6 +47,14 @@ const eventApi = () => {
     });
 
     return router;
+}
+
+function isValidDate(dateString) {
+    // Create a new Date object from the input string
+    const date = new Date(dateString);
+
+    // Check if the input string is in the correct format, and if the resulting Date object is valid
+    return !isNaN(date) && /^\d{4}-\d{2}-\d{2}$/.test(dateString);
 }
 
 module.exports = eventApi;

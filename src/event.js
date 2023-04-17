@@ -5,7 +5,32 @@ const eventSchema = require('../models/event');
 const eventApi = () => {
 
     router.get('/', (req,res) => {
+        const { name, date, place } = req.body;
+        if(date && !isValidDate(date)){
+            return res.status(400).send('Format date not valid: yyyy-mm-dd');
+        }
+        const query = {};
+  
+        if (date) {
+            query.date = date;
+        }
 
+        if (name) {
+            query.name = name;
+        }
+
+        if (place) {
+            query.place = place;
+        }
+        eventSchema.find(query)
+        .then(docs => {
+            console.log(docs);
+            return res.status(200).json(docs);
+        })
+        .catch(err => {
+            console.error(err);
+            return res.status(400).send('Error: '+err);
+        });
     });
 
     router.post('/', (req,res) => {
@@ -17,7 +42,7 @@ const eventApi = () => {
                 return res.status(400).send('Format date not valid: yyyy-mm-dd');
             }
             eventSchema.findOne({ name: name, date: date, place: place })
-            .then(doc => {
+            .then(async doc => {
                 if (!doc) {
                     const newEvent = new eventSchema({
                         name: name,
@@ -26,7 +51,7 @@ const eventApi = () => {
                     });
                     
                     // Save the new document to the database
-                    newEvent.save()
+                    await newEvent.save()
                     .then(doc => {
                         // Document saved successfully
                         console.log(doc);
@@ -36,8 +61,9 @@ const eventApi = () => {
                         console.error(err);
                         return res.status(400).send('Error: '+err);
                     });
-                }
-                return res.status(409).send('Event already created.');
+                }else{
+                    return res.status(409).send('Event already created.');
+                }     
             })
             .catch(err => {
                 console.error(err);
@@ -50,7 +76,6 @@ const eventApi = () => {
 }
 
 function isValidDate(dateString) {
-    // Create a new Date object from the input string
     const date = new Date(dateString);
 
     // Check if the input string is in the correct format, and if the resulting Date object is valid

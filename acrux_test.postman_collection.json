@@ -1,0 +1,91 @@
+{
+	"info": {
+		"_postman_id": "d471a4df-9818-4731-916c-941feec7fde6",
+		"name": "acrux_test",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "16001434"
+	},
+	"item": [
+		{
+			"name": "Create a new event",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": [
+						{
+							"key": "name",
+							"value": "Antonio",
+							"description": "REQUIRED",
+							"type": "text"
+						},
+						{
+							"key": "place",
+							"value": "Ceuta",
+							"description": "REQUIRED",
+							"type": "text"
+						},
+						{
+							"key": "date",
+							"value": "2010-01-25",
+							"description": "REQUIRED",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "http://localhost:3001/event",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3001",
+					"path": [
+						"event"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "List events",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": [
+						{
+							"key": "place",
+							"value": "",
+							"description": "NOT REQUIRED",
+							"type": "text"
+						},
+						{
+							"key": "date",
+							"value": "",
+							"description": "NOT REQUIRED",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "http://localhost:3001/event",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3001",
+					"path": [
+						"event"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

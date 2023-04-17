@@ -12,12 +12,12 @@ To get started with Acrux Test, follow these steps:
 
 bash
 ```
-$git clone https://github.com/your-username/acrux-test.git
-$cd acrux-test
-$npm install
-$npm start
+$ git clone https://github.com/your-username/acrux-test.git
+$ cd acrux-test
+$ npm install
+$ npm start
 ```
 
 Once the app is running, you can access it by navigating to http://localhost:3001 in your web browser.
 
-API Routes
+Inside the repository there is a Postman import file to execute the different routes.

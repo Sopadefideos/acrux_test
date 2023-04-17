@@ -7,6 +7,9 @@ app.get('/', (req, res) => {
   res.send('Hello, world!');
 });
 
+app.use(express.urlencoded({ extended: true }));
+app.use(express.json());
+
 //MONGOOSE CONNECTION
 const dbUrl = process.env.MONGODB || 'mongodb://localhost/your_database_name';
 
